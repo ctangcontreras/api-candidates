@@ -42,7 +42,7 @@ public class CandidatesServiceImpl implements CandidatesService {
 
         } catch (Exception e) {
             log.error(e.getMessage(),e);
-            return new Respuesta<>(true, e.getMessage());
+            return new Respuesta<>(false, e.getMessage());
         }
 
     }
@@ -53,7 +53,6 @@ public class CandidatesServiceImpl implements CandidatesService {
             if (list.isPresent()) {
                 Candidates candidate = list.get();
                 candidate.setName(dto.getName());
-                candidate.setName(dto.getName());
                 candidate.setPhone(dto.getPhone());
                 candidate.setEmail(dto.getEmail());
                 candidate.setAddress(dto.getAddress());
@@ -61,14 +60,13 @@ public class CandidatesServiceImpl implements CandidatesService {
                 candidate.setSalary_expected(dto.getSalary_expected());
                 candidate.setDate_modify(LocalDateTime.now());
                 candidatesRepository.save(candidate);
-
-                return new Respuesta<>(true, list, Mensajes.ALER_SUCCESS005);
+                return new Respuesta<>(true, list, Mensajes.ALER_SUCCESS004);
             } else {
-                return new Respuesta<>(true, list, Mensajes.ALER_SUCCESS002);
+                return new Respuesta<>(false, list, Mensajes.ALER002);
             } 
         } catch (Exception e) {
             log.error(e.getMessage(),e);
-            return new Respuesta<>(true, e.getMessage());
+            return new Respuesta<>(false, e.getMessage());
         }
     }
 
@@ -78,13 +76,13 @@ public class CandidatesServiceImpl implements CandidatesService {
             Optional<Candidates> list = candidatesRepository.findById(id);
 
             if (list.isPresent()) {
-                return new Respuesta<>(true, list, Mensajes.ALER_SUCCESS003);
-            } else {
                 return new Respuesta<>(true, list, Mensajes.ALER_SUCCESS002);
+            } else {
+                return new Respuesta<>(false, list, Mensajes.ALER002);
             }
         } catch (Exception e) {
             log.error(e.getMessage(),e);
-            return new Respuesta<>(true, e.getMessage());
+            return new Respuesta<>(false, e.getMessage());
         }
     }
 
@@ -99,14 +97,14 @@ public class CandidatesServiceImpl implements CandidatesService {
                 candidate.setDate_eliminate(LocalDateTime.now());
                 candidatesRepository.save(candidate);
 
-                return new Respuesta<>(true, list, Mensajes.ALER_SUCCESS004);
+                return new Respuesta<>(true, list, Mensajes.ALER_SUCCESS003);
             } else {
-                return new Respuesta<>(true, list, Mensajes.ALER_SUCCESS002);
+                return new Respuesta<>(false, list, Mensajes.ALER002);
             }
 
         } catch (Exception e) {
             log.error(e.getMessage(),e);
-            return new Respuesta<>(true, e.getMessage());
+            return new Respuesta<>(false, e.getMessage());
         }
     }
 

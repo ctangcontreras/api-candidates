@@ -30,7 +30,7 @@ public class Users {
      private String email;
 
      @Column(name = "active")
-     private Integer active;
+     private String active;
      
      @Column(name = "password")
      private String password;
