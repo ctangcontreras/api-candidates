@@ -49,9 +49,8 @@ public class CandidatesServiceImpl implements CandidatesService {
 
     public Respuesta<?> updateCandidate(CandidateDto dto) throws Exception {
         try {
-            Optional<Candidates> list = candidatesRepository.findById(dto.getId());
-            if (list.isPresent()) {
-                Candidates candidate = list.get();
+            Candidates candidate = candidatesRepository.findByIdAndActives(dto.getId());
+            if (candidate!=null) {
                 candidate.setName(dto.getName());
                 candidate.setPhone(dto.getPhone());
                 candidate.setEmail(dto.getEmail());
@@ -60,9 +59,9 @@ public class CandidatesServiceImpl implements CandidatesService {
                 candidate.setSalary_expected(dto.getSalary_expected());
                 candidate.setDate_modify(LocalDateTime.now());
                 candidatesRepository.save(candidate);
-                return new Respuesta<>(true, list, Mensajes.ALER_SUCCESS004);
+                return new Respuesta<>(true, candidate, Mensajes.ALER_SUCCESS004);
             } else {
-                return new Respuesta<>(false, list, Mensajes.ALER002);
+                return new Respuesta<>(false, candidate, Mensajes.ALER002);
             } 
         } catch (Exception e) {
             log.error(e.getMessage(),e);
@@ -73,12 +72,12 @@ public class CandidatesServiceImpl implements CandidatesService {
     public Respuesta<?> getCandidate(Integer id) throws Exception {
 
         try {
-            Optional<Candidates> list = candidatesRepository.findById(id);
+            Candidates candidate = candidatesRepository.findByIdAndActives(id);
 
-            if (list.isPresent()) {
-                return new Respuesta<>(true, list, Mensajes.ALER_SUCCESS002);
+            if (candidate!=null) {
+                return new Respuesta<>(true, candidate, Mensajes.ALER_SUCCESS002);
             } else {
-                return new Respuesta<>(false, list, Mensajes.ALER002);
+                return new Respuesta<>(false, candidate, Mensajes.ALER002);
             }
         } catch (Exception e) {
             log.error(e.getMessage(),e);
@@ -90,16 +89,15 @@ public class CandidatesServiceImpl implements CandidatesService {
 
         try {
             
-            Optional<Candidates> list = candidatesRepository.findById(id);
-            if (list.isPresent()) {
-                Candidates candidate = list.get();
+            Candidates candidate = candidatesRepository.findByIdAndActives(id);
+            if (candidate!=null) {
                 candidate.setActive(Mensajes.INACTIVE);
                 candidate.setDate_eliminate(LocalDateTime.now());
                 candidatesRepository.save(candidate);
 
-                return new Respuesta<>(true, list, Mensajes.ALER_SUCCESS003);
+                return new Respuesta<>(true, candidate, Mensajes.ALER_SUCCESS003);
             } else {
-                return new Respuesta<>(false, list, Mensajes.ALER002);
+                return new Respuesta<>(false, candidate, Mensajes.ALER002);
             }
 
         } catch (Exception e) {

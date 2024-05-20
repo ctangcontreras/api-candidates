@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.prueba.demo.service.CandidatesService;
 import com.prueba.demo.support.dto.CandidateDto;
+import com.prueba.demo.support.dto.Mensajes;
 import com.prueba.demo.support.dto.Respuesta;
 
 import io.swagger.annotations.Api;
